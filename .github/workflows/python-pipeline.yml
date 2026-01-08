@@ -40,6 +40,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           pip install pytest wheel setuptools
+          pip install -e .
 
       - name: Build
         run: bash ci-framework/scripts/build.sh ${{ inputs.project_type }}
