@@ -20,8 +20,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout project
         uses: actions/checkout@v4
+
+      # Checkout the CI framework repo (where scripts live)
+      - name: Checkout framework
+        uses: actions/checkout@v4
+        with:
+          repository: mohdshariq0092-droid/python-ci-framework
+          ref: v1   # framework version
+          path: ci-framework  # checkout under this folder
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -31,21 +39,17 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install pytest
+          pip install pytest wheel setuptools
 
       - name: Build
-        run: |
-          bash scripts/build.sh ${{ inputs.project_type }}
+        run: bash ci-framework/scripts/build.sh ${{ inputs.project_type }}
 
       - name: Test
-        run: |
-          bash scripts/test.sh
+        run: bash ci-framework/scripts/test.sh
 
       - name: Package
-        run: |
-          bash scripts/package.sh
+        run: bash ci-framework/scripts/package.sh
 
       - name: Deploy
         if: ${{ inputs.deploy }}
-        run: |
-          bash scripts/deploy.sh
+        run: bash ci-framework/scripts/deploy.sh
