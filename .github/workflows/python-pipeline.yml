@@ -56,7 +56,7 @@ jobs:
       # Run linting
       - name: Run linting
         working-directory: ${{ github.workspace }}
-        run: flake8 .
+        run: flake8 -v .
 
       # Run security scan (Bandit)
       - name: Security scan
