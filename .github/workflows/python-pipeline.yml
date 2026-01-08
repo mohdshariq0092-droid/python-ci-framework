@@ -48,6 +48,18 @@ jobs:
       - name: Test
         run: bash ci-framework/scripts/test.sh
 
+      # Run unit tests + coverage
+      - name: Run unit tests + coverage
+        run: pytest --cov=calculator tests/
+
+      # Run linting
+      - name: Run linting
+        run: flake8 calculator
+
+      # Run security scan (Bandit)
+      - name: Security scan
+        run: bandit -r calculator
+
       - name: Package
         run: bash ci-framework/scripts/package.sh
 
