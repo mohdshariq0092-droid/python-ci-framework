@@ -11,7 +11,7 @@ on:
         required: true
         type: string
 
-      python_version:
+      python_versions:
         required: false
         default: '["3.11"]'
         type: string
